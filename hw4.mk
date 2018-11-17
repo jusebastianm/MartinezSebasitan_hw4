@@ -1,16 +1,16 @@
-resultados.pdf : plot.pdf plot1.pdf resultados.tex
-	pdflatex resultados.tex
+Resultados_hw4.pdf : Resultados_hw4.tex
+	pdflatex Resultados_hw4.tex
 
-plot.pdf: datos.dat plotdatos.py
-	python plotdatos.py
+imagenes: Plots_hw4.py
+	python Plots_hw4.py
 
-plot1.pdf: datos1.dat plotdatos1.py
-	python plotdatos1.py
 
-datos.dat: makedatos.py
-	python makedatos.py >> datos.dat
+proyectil.dat and :
+datos_PDE.dat: PDE.cpp
+	g++ PDE.cpp -o data_pde.out
+	./data_pde.out>>datos_PDE.dat
 
-datos1.dat: makedatos1.cpp
-	g++ makedatos1.cpp
-	./a.out>>datos1.dat
+datos_ODE.dat: ODE.cpp
+	g++ ODE.cpp -o data_ode.out
+	./data_ode.out>>datos_ODE.dat
 
