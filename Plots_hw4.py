@@ -5,10 +5,12 @@ data= np.genfromtxt("proyectil.txt")
 
 x=data[:,0]
 y=data[:,1]
-pr=np.linspace(2249.772721,2249.772721, len(x))
+
 
 plt.figure()
+plt.title("Proyectil a 45 grados")
+plt.xlabel("Alcance horizontal (m)")
+plt.ylabel("Alcance vertical (m)")
 plt.plot(x,y)
-plt.plot(x,pr)
 plt.show()
 
