@@ -8,11 +8,6 @@ using namespace std;
 double g=10;
 double v0=300;
 
-double t(double v0, double ang)
-{
-	return v0*sin(ang)/g;
-}
-
 double pos_x(double x0,double v0, double ang, double t)
 {
 	return x0 + v0*cos(ang)*t;
@@ -24,18 +19,13 @@ double pos_y(double y0,double v0, double ang, double t)
 }
 
 
-double vel_x(double v0, double ang)
-{
-	return v0*cos(ang);
-}
-
 double vel_y(double v0, double ang, double t)
 {
 	return v0*sin(ang)-g*t;
 }
-double velocidad(double vel_x,double vel_y)
+double velocidad(double v0,double ang, double vel_y)
 {
-	return sqrt(vel_x*vel_x+vel_y*vel_y);
+	return sqrt(v0*cos(ang)*v0*cos(ang)+vel_y*vel_y);
 }
 
 double aceleracion(double velocidad)
@@ -46,8 +36,37 @@ double aceleracion(double velocidad)
 
 int main()
 {	
+	double x0=0;
+	double y0=0;
+	double v0=300;
+	double ang=45;
+	double h=2;
 	
-		
+
+	for (int t=0; t<=2*v0*sin(ang)/g; t++)
+	{
+	double k1_posx=pos_x(x0,v0,ang,t);
+	double k1_posy=pos_y(y0,v0,ang,t);
+	double k1_vely=vel_y(v0,ang,t);
+	double k1_vel=velocidad(v0, ang, k1_vely);
+	double k1_ac=aceleracion(k1_vel);
+
+
+	double k2_posx=pos_x(x0+h*k1_posx/2.0,v0,ang,t+h/2.0);
+	double k2_posy=pos_y(y0+h*k1_posy/2.0,v0,ang,t+h/2.0);
+	
+	double k3_posx=pos_x(x0+h*k2_posx/2.0,v0,ang,t+h/2.0);
+	double k3_posy=pos_y(y0+h*k2_posy/2.0,v0,ang,t+h/2.0);
+	
+	double k4_posx=pos_x(x0+h*k3_posx,v0,ang,t+h);
+	double k4_posy=pos_y(y0+h*k3_posy,v0,ang,t+h);
+
+	double rx=x0+h*(k1_posx+2.0*k2_posx+2.0*k3_posx+k4_posx)/6.0;
+	double ry=y0+h*(k1_posy+2.0*k2_posy+2.0*k3_posy+k4_posy)/6.0;	
+	cout << rx << " " << ry << " " << endl;
+
+	}
+	
 	return 0;
 }
 
