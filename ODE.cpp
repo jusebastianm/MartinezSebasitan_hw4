@@ -13,29 +13,29 @@ double v0=300;
 double c=0.2;
 double pos_x(double x0,double v0, double ang, double t)
 	{
-		return  v0*cos(ang)*(1- exp(-c*t))/c;
+		return  abs(v0)*cos(ang)*(1- exp(-c*t))/c;
 	}
 
 double pos_y(double y0,double v0, double ang, double t)
 	{
-		return (1/c)*((g/c)+v0*sin(ang))*(1-exp(-c*t))-(g*t/c);
+		return (1/c)*((g/c)+abs(v0)*sin(ang))*(1-exp(-c*t))-(g*t/c);
 	}
 
 double velocidad(double v0,double ang,double t)
 	{
-		return sqrt( pow(v0*cos(ang)*exp(-c*t),2) + pow(((g/c)+v0*sin(ang))*exp(-c*t)-(g/c),2) );
+		return sqrt( pow(abs(v0)*cos(ang)*exp(-c*t),2) + pow(((g/c)+abs(v0)*sin(ang))*exp(-c*t)-(g/c),2) );
 	}
 
 double aceleracion(double v0, double ang)
 	{
-		return sqrt( pow(-c*v0*cos(ang),2)+pow(-g-c*v0*sin(ang),2));
+		return sqrt( pow(-c*abs(v0)*cos(ang),2)+pow(-g-c*abs(v0)*sin(ang),2));
 	}
+
 
 int main()
 	{	
 		double x0=0;
 		double y0=0;
-		double v0=300;
 		double ang=45;
 		double h=0.5;
 		
@@ -60,11 +60,12 @@ int main()
 				double ry=y0+h*(k1_posy+2.0*k2_posy+2.0*k3_posy+k4_posy)/6.0;
 				
 				double vel=velocidad(v0, ang, t);
+				
 				outFile << rx << " " << ry << " " << vel << endl;
 			}	
 
 		outFile.close();
-
+//_______________________________________________________________________________________________________________________________
 
 		double ang2=10;
 		double ang3=20;
@@ -81,26 +82,30 @@ int main()
 //_______________________________________________________________________________________________________________________________
 //					10 GRADOS 
 
-				double k1_posx_10=pos_x(x0,v0,ang2,t);
-				double k1_posy_10=pos_y(y0,v0,ang2,t);
+				double k1_posx=pos_x(x0,v0,ang2,t);
+				double k1_posy=pos_y(y0,v0,ang2,t);
 
-				double k2_posx_10=pos_x(x0+h*k1_posx_10/2.0,v0,ang2,t+h/2.0);
-				double k2_posy_10=pos_y(y0+h*k1_posy_10/2.0,v0,ang2,t+h/2.0);
+				double k2_posx=pos_x(x0+h*k1_posx/2.0,v0,ang2,t+h/2.0);
+				double k2_posy=pos_y(y0+h*k1_posy/2.0,v0,ang2,t+h/2.0);
 		
-				double k3_posx_10=pos_x(x0+h*k2_posx_10/2.0,v0,ang2,t+h/2.0);
-				double k3_posy_10=pos_y(y0+h*k2_posy_10/2.0,v0,ang2,t+h/2.0);
+				double k3_posx=pos_x(x0+h*k2_posx/2.0,v0,ang2,t+h/2.0);
+				double k3_posy=pos_y(y0+h*k2_posy/2.0,v0,ang2,t+h/2.0);
 	
-				double k4_posx_10=pos_x(x0+h*k3_posx_10,v0,ang2,t+h);
-				double k4_posy_10=pos_y(y0+h*k3_posy_10,v0,ang2,t+h);
+				double k4_posx=pos_x(x0+h*k3_posx,v0,ang2,t+h);
+				double k4_posy=pos_y(y0+h*k3_posy,v0,ang2,t+h);
 
-				double rx_10=(x0+h*(k1_posx_10+2.0*k2_posx_10+2.0*k3_posx_10+k4_posx_10)/6.0)*-1;
-				double ry_10=(y0+h*(k1_posy_10+2.0*k2_posy_10+2.0*k3_posy_10+k4_posy_10)/6.0)*-1;
+				double rx_10=x0+h*(k1_posx+2.0*k2_posx+2.0*k3_posx+k4_posx)/6.0;
+				double ry_10=y0+h*(k1_posy+2.0*k2_posy+2.0*k3_posy+k4_posy)/6.0;
 				
 				double vel_10=velocidad(v0, ang2, t);
 
+
+		outFile2 << rx_10 << " " << ry_10 << " " << vel_10 << endl;
+		outFile2.close();
 //________________________________________________________________________________________________________________________________
 //					20 GRADOS 
 
+/*
 				double k1_posx_20=pos_x(x0,v0,ang3,t);
 				double k1_posy_20=pos_y(y0,v0,ang3,t);
 
@@ -216,11 +221,11 @@ int main()
 				double vel_70=velocidad(v0, ang8, t);
 				
 
-				
+	/*			
 outFile2 << rx_10 << " " << ry_10 << " " << vel_10 << " " << rx_20 << " " << ry_20 << " " << vel_20 << " " << rx_30 << " " << ry_30 << " " << vel_30 << " " << rx_40 << " " << ry_40 << " " << vel_40 << " " << rx_50 << " " << ry_50 << " " << vel_50 << " " << rx_60 << " " << ry_60 << " " << vel_60 << " " << rx_70 << " " << ry_70 << " " << vel_70 << endl;
-			}	
+			}	*/
 
-		outFile2.close();
+}
 		return 0;
 	}
 
