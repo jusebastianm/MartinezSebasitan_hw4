@@ -19,7 +19,7 @@ int main()
 	double area_cir=pow(dia_cir/2.0,2.0)*pi;
 	double t_cir=373.15;
 
-	//Constantes de la roca
+	//Constantes de la roca DE Calcita
 	
 	double area_roca=pow(0.5,2.0);
 	double k=1.62;
@@ -56,32 +56,15 @@ int main()
 		for (int j=1;j<=espacios;j++)
 		{
 			int ecu_circulo=pow(i*50/100-centro_roca,2)+pow(j*50/100-centro_roca,2);
-			if(ecu_circulo<=centro_roca)
+			
+			if(sqrt(ecu_circulo)< centro_roca)
 	    		{
 				roca[i][j]=100;
 	   		}
-			else
-			{
-				roca[i][j]=10;
-			}
-	  	}
 		
+			
+	  	}
 	}
-	ofstream iniciales;
-	iniciales.open("iniciales.txt");
-	for(int i=0;i<espacios;i++)
-	{
-		for(int j=0;j<espacios;j++)
-		{
-			iniciales<<roca[i][j]<<",";
-			if(j==(lado_roca-1))
-			{
-				iniciales<<roca[i][j]<<endl;
-			}
-		}
-	}
-	iniciales.close();
-	
 	return 0;
 }
 
