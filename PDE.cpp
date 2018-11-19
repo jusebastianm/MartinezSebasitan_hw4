@@ -24,15 +24,15 @@ int main()
 	double area_roca=pow(0.5,2.0);
 	double k=1.62;
 	double Cp=820;
-	double den=2710;
+	double den=0.00000271;
 	double v=k/(Cp*den);
-	double lado_roca=0.5;
+	double lado_roca=50;
 	
 	int espacios=100;
 	double division_roca=lado_roca/espacios;
 	
 
-	double roca[espacios][espacios];
+	
 	// Constante utilizada en el libro de Landau
 
 	double eta=(k)/(pow(division_roca,2)*Cp*den);
@@ -44,37 +44,43 @@ int main()
 	//Creo la situacion inicial
 	int i;
 	int j;
-	for(int i=0;i<espacios;i++)
+	double dx=0;
+	double dy=0;
+	double roca[espacios][espacios];
+	double centro_roca= 50/2.0;
+	
+
+	
+	for (int i=1;i<=espacios;i++)
 	{
-		for(int j=0;j<espacios;j++)
+		for (int j=1;j<=espacios;j++)
 		{
-			division_roca=((i*division_roca)-lado_roca/2)*((i*division_roca)-lado_roca/2);
-			division_roca=((j*division_roca)-lado_roca/2)*((j*division_roca)-lado_roca/2);
-			if(sqrt(division_roca+division_roca)<0.05)
-			{
+			int ecu_circulo=pow(i*50/100-centro_roca,2)+pow(j*50/100-centro_roca,2);
+			if(ecu_circulo<=centro_roca)
+	    		{
 				roca[i][j]=100;
-			}
+	   		}
 			else
 			{
 				roca[i][j]=10;
 			}
-		}
+	  	}
+		
 	}
-
-	ofstream inicio;
-	inicio.open("iniciales.txt");
+	ofstream iniciales;
+	iniciales.open("iniciales.txt");
 	for(int i=0;i<espacios;i++)
 	{
 		for(int j=0;j<espacios;j++)
 		{
-			inicio<<roca[i][j]<<endl;
-			if(j==(espacios-1))
+			iniciales<<roca[i][j]<<",";
+			if(j==(lado_roca-1))
 			{
-				inicio<<roca[i][j]<<endl;
+				iniciales<<roca[i][j]<<endl;
 			}
 		}
 	}
-	inicio.close();
+	iniciales.close();
 	
 	return 0;
 }
