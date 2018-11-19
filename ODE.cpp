@@ -224,7 +224,8 @@ outFile2 << rx_10 << " " << ry_10 << " " << vel_10 << " " << rx_20 << " " << ry_
 	
 		outFile2.close();	
 
-
+		cout << "La distancia recorrida en x por el proyectil es de aproximadamente 5.3 metros" << endl;
+		cout << "Con un angulo de 20 grados, el proyectil alcanza la mayor distancia en x" << endl;
 		return 0;
 	}
 

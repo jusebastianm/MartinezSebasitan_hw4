@@ -31,7 +31,7 @@ int main()
 	int espacios=100;
 	double division_roca=lado_roca/espacios;
 	
-
+ 
 	
 	// Constante utilizada en el libro de Landau
 
@@ -49,27 +49,12 @@ int main()
 	double roca[espacios][espacios];
 	double centro_roca= 50/2.0;
 	
-	ofstream iniciales;
-	iniciales.open("iniciales.txt");
-	for(int i=0;i<espacios;i++)
-	{
-		for(int j=0;j<espacios;j++)
-		{	
-			int ecu_circulo=pow(i*50/100-centro_roca,2)+pow(j*50/100-centro_roca,2);
-			if(sqrt(ecu_circulo)<5)
-			{
-				roca[i][j]=100;
-				iniciales<<roca[i][j]<<endl;
-			}
-			else
-			{
-				roca[i][j]=10;
-				iniciales<<roca[i][j]<<endl;
-			}
-		}
-	}	
 	
-	iniciales.close();
+
+
+	//En esta sección deberían ir los generadores de datos de graficas pero no se lograron obtener por ineficiencias del codigo. Aun asi, se pueden evidenciar evidenciar los intentos realizados en github que a final de cuentas no generaron nada. 
+
+
 	return 0;
 }
 
