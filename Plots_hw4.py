@@ -81,4 +81,19 @@ plt.savefig("proyectil_2.png")
 #_____________________________________  ECUACIONES DIFERENCIALES PARCIALES - PDE __________________________________________________________
 #___________________________________________________________________________________________________________________________________________
 
+iniciales=np.genfromtxt("iniciales.txt",delimiter=",")
+dis=np.shape(iniciales)
+yo=np.linspace(0,50,dis[0])
+xo=np.linspace(0,50,dis[1])
+xo, yo=np.meshgrid(xo,yo)
+fig=plt.figure()
+ax=fig.add_subplot(1,1,1, projection='3d')
+ax.plot_wireframe(xo,yo,iniciales)
+
+plt.title("Inicio")
+ax.set_xlabel("x(m)")
+ax.set_ylabel("y(m)")
+ax.set_zlabel("T(C)")
+ax.set_zlim(0,100)
+plt.savefig("iniciales.png")
 

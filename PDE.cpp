@@ -51,20 +51,37 @@ int main()
 	
 
 	
-	for (int i=1;i<=espacios;i++)
+	for(int i=0;i<espacios;i++)
 	{
-		for (int j=1;j<=espacios;j++)
-		{
+		for(int j=0;j<espacios;j++)
+		{	
 			int ecu_circulo=pow(i*50/100-centro_roca,2)+pow(j*50/100-centro_roca,2);
-			
-			if(sqrt(ecu_circulo)< centro_roca)
-	    		{
+			if(sqrt(ecu_circulo)<5)
+			{
 				roca[i][j]=100;
-	   		}
-		
-			
-	  	}
+			}
+			else
+			{
+				roca[i][j]=10;
+			}
+		}
 	}
+
+	// extremos fijos
+	ofstream iniciales;
+	iniciales.open("iniciales.txt");
+	for(int i=0;i<espacios;i++)
+	{
+		for(int j=0;j<espacios;j++)
+		{
+			iniciales<<roca[i][j]<<",";
+			if(j==(espacios-1))
+			{
+				iniciales<<roca[i][j]<<endl;
+			}
+		}
+	}
+	iniciales.close();
 	return 0;
 }
 
