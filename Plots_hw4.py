@@ -28,11 +28,10 @@ y=data[:,1]
 
 
 plt.figure()
-plt.ylim(0,400)
 plt.title("Trayectoria de un Proyectil a 45 grados")
 plt.xlabel("Alcance horizontal (m)")
 plt.ylabel("Alcance vertical (m)")
-plt.plot(x,y)
+plt.plot(x/100,y/100)
 plt.savefig("proyectil_1.png")
 #___________________________________________________________________________________________________________________________________________
 
@@ -61,17 +60,17 @@ x_70=data2[:,18]
 y_70=data2[:,19]
 
 plt.figure()
-plt.ylim(0,500)
+plt.ylim(0,5)
 plt.title("Trayectoria de un Proyectil a diferentes grados")
 plt.xlabel("Alcance horizontal (m)")
 plt.ylabel("Alcance vertical (m)")
-plt.plot(x_10,y_10, label="10 grados")
-plt.plot(x_20,y_20, label="20 grados")
-plt.plot(x_30,y_30, label="30 grados")
-plt.plot(x_40,y_40, label="40 grados")
-plt.plot(x_50,y_50, label="50 grados")
-plt.plot(x_60,y_60, label="60 grados")
-plt.plot(x_70,y_70, label="70 grados")
+plt.plot(x_10/100,y_10/100, label="10 grados")
+plt.plot(x_20/100,y_20/100, label="20 grados")
+plt.plot(x_30/100,y_30/100, label="30 grados")
+plt.plot(x_40/100,y_40/100, label="40 grados")
+plt.plot(x_50/100,y_50/100, label="50 grados")
+plt.plot(x_60/100,y_60/100, label="60 grados")
+plt.plot(x_70/100,y_70/100, label="70 grados")
 plt.legend(loc=0)
 plt.savefig("proyectil_2.png")
 #___________________________________________________________________________________________________________________________________________
@@ -81,19 +80,4 @@ plt.savefig("proyectil_2.png")
 #_____________________________________  ECUACIONES DIFERENCIALES PARCIALES - PDE __________________________________________________________
 #___________________________________________________________________________________________________________________________________________
 
-iniciales=np.genfromtxt("iniciales.txt",delimiter=",")
-dis=np.shape(iniciales)
-yo=np.linspace(0,50,dis[0])
-xo=np.linspace(0,50,dis[1])
-xo, yo=np.meshgrid(xo,yo)
-fig=plt.figure()
-ax=fig.add_subplot(1,1,1, projection='3d')
-ax.plot_wireframe(xo,yo,iniciales)
-
-plt.title("Inicio")
-ax.set_xlabel("x(m)")
-ax.set_ylabel("y(m)")
-ax.set_zlabel("T(C)")
-ax.set_zlim(0,100)
-plt.savefig("iniciales.png")
-
+data3=np.genfromtxt("iniciales.txt")
