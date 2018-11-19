@@ -1,16 +1,10 @@
-Resultados_hw4.pdf : Resultados_hw4.tex
+Resultados_hw4.pdf : proyectil_1.png proyectil_2.png Resultados_hw4.tex
 	pdflatex Resultados_hw4.tex
 
-imagenes: Plots_hw4.py
+proyectil_1.png proyectil_2.png: proyectil.txt proyectil_2.txt Plots_hw4.py
 	python Plots_hw4.py
 
-
-proyectil.dat and :
-datos_PDE.dat: PDE.cpp
-	g++ PDE.cpp -o data_pde.out
-	./data_pde.out>>datos_PDE.dat
-
-datos_ODE.dat: ODE.cpp
+proyectil.txt proyectil_2.txt: ODE.cpp
 	g++ ODE.cpp -o data_ode.out
-	./data_ode.out>>datos_ODE.dat
+	./data_ode.out
 

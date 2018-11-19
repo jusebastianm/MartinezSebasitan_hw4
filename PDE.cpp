@@ -10,79 +10,10 @@ using namespace std;
 
 #define pi 3.14159265359;
 
-
-
-
-
-double iniciales(double lado_roca, int espacios, double division_roca)
-{
-	
-	double avance_horizontal=0;
-	double avance_vertical=0;
-	int i;
-	double roca_pasado[espacios][espacios];
-	for(int i=0; i < espacios; i++)
-	{
-		for(int j=0;j<espacios;j++)
-		{
-			avance_horizontal=((i*division_roca)-espacios*lado_roca/2)*((i*division_roca)-espacios*lado_roca/2);
-			avance_vertical=((j*division_roca)-espacios*lado_roca/2)*((j*division_roca)-espacios*lado_roca/2);
-			if(sqrt(avance_horizontal+avance_vertical)<5)
-			{
-				roca_pasado[i][j]=100;
-			}
-			else
-			{
-				roca_pasado[i][j]=10;
-			}
-		}
-	}
-
-
-
-	for(int i=0;i<espacios;i++)
-	{
-		for(int j=0;j<espacios;j++)
-		{
-			return roca_pasado[i][j];
-			if(j==(espacios-1))
-			{
-				return roca_pasado[i][j];
-			}
-		}
-	}
-	
-}
-
-/*
-double caso1_fijos(int espacios)
-{
-	int i;
-	int j;
-	double roca_pasado[espacios][espacios];
-	double roca_futuro[espacios][espacios];
-	
-	for(int i=0;i<espacios;i++)
-	{	
-		
-		for(int j=0;j<espacios;j++)
-		{
-			cout<<roca_pasado[i][j]<<endl;
-			if(j==(espacios-1))
-			{
-				cout<<roca_pasado[i][j]<<endl;
-			}
-		}
-		
-		
-	}
-	
-}
-
-*/
 int main()
 {	
-		
+	//____________________________________________________________________________________________________________
+
 	//Constantes del circulo - varilla
 	double dia_cir = 0.1;
 	double area_cir=pow(dia_cir/2.0,2.0)*pi;
@@ -95,18 +26,55 @@ int main()
 	double Cp=820;
 	double den=2710;
 	double v=k/(Cp*den);
-	double lado_roca=50;
+	double lado_roca=0.5;
 	
 	int espacios=100;
 	double division_roca=lado_roca/espacios;
+	
 
-	double clave=(k)/(pow(division_roca,2)*Cp*den);
+	double roca[espacios][espacios];
+	// Constante utilizada en el libro de Landau
+
+	double eta=(k)/(pow(division_roca,2)*Cp*den);
 	
+	//____________________________________________________________________________________________________________
+
+
 	
-	ofstream outFile; 
-	outFile.open("inicio.txt");
-	outFile << iniciales(lado_roca,espacios, division_roca) << endl;
-	outFile.close();
+	//Creo la situacion inicial
+	int i;
+	int j;
+	for(int i=0;i<espacios;i++)
+	{
+		for(int j=0;j<espacios;j++)
+		{
+			division_roca=((i*division_roca)-lado_roca/2)*((i*division_roca)-lado_roca/2);
+			division_roca=((j*division_roca)-lado_roca/2)*((j*division_roca)-lado_roca/2);
+			if(sqrt(division_roca+division_roca)<0.05)
+			{
+				roca[i][j]=100;
+			}
+			else
+			{
+				roca[i][j]=10;
+			}
+		}
+	}
+
+	ofstream inicio;
+	inicio.open("iniciales.txt");
+	for(int i=0;i<espacios;i++)
+	{
+		for(int j=0;j<espacios;j++)
+		{
+			inicio<<roca[i][j]<<endl;
+			if(j==(espacios-1))
+			{
+				inicio<<roca[i][j]<<endl;
+			}
+		}
+	}
+	inicio.close();
 	
 	return 0;
 }
